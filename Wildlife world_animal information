@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Encyclopedia</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .tab-container {
+            background-color: #34495e;
+            padding: 10px;
+        }
+        .tabs {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tabs li {
+            margin: 0 15px;
+        }
+        .tabs a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .tabs a:hover, .tabs a.active {
+            background-color: #3498db;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .hero {
+            background-image: url('https://via.placeholder.com/1200x400?text=Wildlife+Banner');
+            background-size: cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .animal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .animal-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .animal-card:hover {
+            transform: translateY(-5px);
+        }
+        .animal-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .animal-card h3 {
+            padding: 10px;
+            margin: 0;
+            background-color: #3498db;
+            color: white;
+        }
+        .animal-card p {
+            padding: 10px;
+            margin: 0;
+        }
+        .animal-card a {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            font-size: 14px;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Animal Detail Styles */
+        .animal-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .animal-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        .animal-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .animal-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        .facts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .facts-table th, .facts-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .facts-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        .facts-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* Search and Newsletter Styles */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-container input {
+            padding: 10px;
+            width: 60%;
+            max-width: 500px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .newsletter {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .newsletter input {
+            padding: 10px;
+            width: 60%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+        .newsletter button {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wildlife Encyclopedia</h1>
+        <p>Discover the fascinating world of animals</p>
+    </header>
+    
+    <div class="tab-container">
+        <ul class="tabs">
+            <li><a href="#" class="tab-link active" data-tab="home">Home</a></li>
+            <li><a href="#" class="tab-link" data-tab="mammals">Mammals</a></li>
+            <li><a href="#" class="tab-link" data-tab="birds">Birds</a></li>
+            <li><a href="#" class="tab-link" data-tab="reptiles">Reptiles</a></li>
+            <li><a href="#" class="tab-link" data-tab="fish">Fish</a></li>
+            <li><a href="#" class="tab-link" data-tab="conservation">Conservation</a></li>
+            <li><a href="#" class="tab-link" data-tab="tiger">Bengal Tiger</a></li>
+        </ul>
+    </div>
+    
+    <!-- Search Container -->
+    <div class="search-container">
+        <form>
+            <input type="text" placeholder="Search for animals...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+    <!-- Home Tab -->
+    <div id="home" class="tab-content active">
+        <div class="hero">
+            <h2>Explore the Diversity of Animal Life</h2>
+        </div>
+        
+        <h3>Featured Animals</h3>
+        <div class="animal-grid">
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Lion" alt="Lion">
+                <h3>African Lion</h3>
+                <p>The king of the jungle, known for its majestic mane and powerful roar.</p>
+                <a href="#" class="tab-link" data-tab="mammals">View Mammals</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Eagle" alt="Bald Eagle">
+                <h3>Bald Eagle</h3>
+                <p>National bird of the United States, known for its impressive wingspan.</p>
+                <a href="#" class="tab-link" data-tab="birds">View Birds</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Python" alt="Python">
+                <h3>Burmese Python</h3>
+                <p>One of the largest snake species, capable of reaching over 20 feet in length.</p>
+                <a href="#" class="tab-link" data-tab="reptiles">View Reptiles</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Dolphin" alt="Dolphin">
+                <h3>Bottlenose Dolphin</h3>
+                <p>Highly intelligent marine mammals known for their playful behavior.</p>
+                <a href="#" class="tab-link" data-tab="mammals">View Mammals</a>
+            </div>
+        </div>
+        
+        <section>
+            <h3>About Our Website</h3>
+            <p>Welcome to Wildlife Encyclopedia, your comprehensive resource for animal information. Our mission is to educate and inspire people about the incredible diversity of animal life on our planet. From the smallest insects to the largest mammals, we provide accurate, up-to-date information about species from around the world.</p>
+        </section>
+        
+        <div class="newsletter">
+            <h4>Stay Updated</h4>
+            <p>Subscribe to our newsletter for the latest animal news and conservation updates</p>
+            <form>
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Mammals Tab -->
+    <div id="mammals" class="tab-content">
+        <div class="hero" style="background-image: url('https://via.placeholder.com/1200x400?text=Mammals+Banner')">
+            <h2>Discover the World of Mammals</h2>
+        </div>
+        
+        <section>
+            <h3>What are Mammals?</h3>
+            <p>Mammals are vertebrate animals characterized by the presence of mammary glands which in females produce milk for feeding their young, a neocortex, fur or hair, and three middle ear bones. They include the largest animals on the planet, the great whales, as well as some of the most intelligent, such as elephants, primates, and cetaceans.</p>
+        </section>
+        
+        <h3>Mammal Species</h3>
+        <div class="animal-grid">
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Tiger" alt="Tiger">
+                <h3>Bengal Tiger</h3>
+                <p>The largest cat species, recognizable by its orange coat with black stripes.</p>
+                <a href="#" class="tab-link" data-tab="tiger">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Elephant" alt="Elephant">
+                <h3>African Elephant</h3>
+                <p>The largest land animal, known for its intelligence and complex social structures.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Gorilla" alt="Gorilla">
+                <h3>Mountain Gorilla</h3>
+                <p>One of our closest relatives, living in the forests of central Africa.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Panda" alt="Panda">
+                <h3>Giant Panda</h3>
+                <p>Iconic bear species native to China, primarily eating bamboo.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+        
+        <section>
+            <h3>Mammal Characteristics</h3>
+            <ul>
+                <li>Warm-blooded metabolism</li>
+                <li>Hair or fur covering</li>
+                <li>Mammary glands for feeding young</li>
+                <li>Specialized teeth</li>
+                <li>Highly developed brain</li>
+            </ul>
+        </section>
+    </div>
+    
+    <!-- Birds Tab -->
+    <div id="birds" class="tab-content">
+        <div class="hero" style="background-image: url('https://via.placeholder.com/1200x400?text=Birds+Banner')">
+            <h2>Discover the World of Birds</h2>
+        </div>
+        
+        <section>
+            <h3>What are Birds?</h3>
+            <p>Birds are a group of warm-blooded vertebrates constituting the class Aves, characterized by feathers, toothless beaked jaws, the laying of hard-shelled eggs, a high metabolic rate, a four-chambered heart, and a strong yet lightweight skeleton. Birds live worldwide and range in size from the 5.5 cm (2.2 in) bee hummingbird to the 2.8 m (9 ft 2 in) ostrich.</p>
+        </section>
+        
+        <h3>Bird Species</h3>
+        <div class="animal-grid">
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Eagle" alt="Eagle">
+                <h3>Bald Eagle</h3>
+                <p>National bird of the United States, symbol of strength and freedom.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Peacock" alt="Peacock">
+                <h3>Indian Peafowl</h3>
+                <p>Known for its extravagant tail feathers used in mating displays.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Penguin" alt="Penguin">
+                <h3>Emperor Penguin</h3>
+                <p>The tallest and heaviest of all living penguin species.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Hummingbird" alt="Hummingbird">
+                <h3>Ruby-throated Hummingbird</h3>
+                <p>Tiny bird capable of hovering in mid-air by rapidly flapping wings.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+        
+        <section>
+            <h3>Bird Characteristics</h3>
+            <ul>
+                <li>Feathers and wings (though not all birds can fly)</li>
+                <li>Beaks without teeth</li>
+                <li>Lay hard-shelled eggs</li>
+                <li>High metabolic rate</li>
+                <li>Lightweight but strong skeleton</li>
+            </ul>
+        </section>
+    </div>
+    
+    <!-- Reptiles Tab -->
+    <div id="reptiles" class="tab-content">
+        <div class="hero" style="background-image: url('https://via.placeholder.com/1200x400?text=Reptiles+Banner')">
+            <h2>Discover the World of Reptiles</h2>
+        </div>
+        
+        <section>
+            <h3>What are Reptiles?</h3>
+            <p>Reptiles are cold-blooded vertebrates of the class Reptilia, comprising the turtles, snakes, lizards, crocodilians, and tuataras. They are distinguished by having dry skin covered with scales or bony plates and typically laying soft-shelled eggs on land. Many reptiles are carnivorous, and most are ectothermic ("cold-blooded").</p>
+        </section>
+        
+        <h3>Reptile Species</h3>
+        <div class="animal-grid">
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Python" alt="Python">
+                <h3>Burmese Python</h3>
+                <p>One of the largest snake species, native to Southeast Asia.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Crocodile" alt="Crocodile">
+                <h3>Nile Crocodile</h3>
+                <p>Large African crocodile and the second-largest extant reptile in the world.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Tortoise" alt="Tortoise">
+                <h3>Galápagos Tortoise</h3>
+                <p>The largest living species of tortoise, native to the Galápagos Islands.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Komodo" alt="Komodo Dragon">
+                <h3>Komodo Dragon</h3>
+                <p>The largest living species of lizard, found on Komodo Island.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+        
+        <section>
+            <h3>Reptile Characteristics</h3>
+            <ul>
+                <li>Cold-blooded (ectothermic) metabolism</li>
+                <li>Dry, scaly skin</li>
+                <li>Most lay soft-shelled eggs on land</li>
+                <li>Breathe through lungs</li>
+                <li>Three-chambered heart (except crocodilians)</li>
+            </ul>
+        </section>
+    </div>
+    
+    <!-- Fish Tab -->
+    <div id="fish" class="tab-content">
+        <div class="hero" style="background-image: url('https://via.placeholder.com/1200x400?text=Fish+Banner')">
+            <h2>Discover the World of Fish</h2>
+        </div>
+        
+        <section>
+            <h3>What are Fish?</h3>
+            <p>Fish are aquatic vertebrate animals that have gills but lack limbs with digits. They are a paraphyletic group whose exact relationships are much debated. Fish are abundant in most bodies of water and can be found in nearly all aquatic environments, from high mountain streams to the abyssal and even hadal depths of the deepest oceans.</p>
+        </section>
+        
+        <h3>Fish Species</h3>
+        <div class="animal-grid">
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Clownfish" alt="Clownfish">
+                <h3>Clownfish</h3>
+                <p>Small, brightly colored fish that live in symbiosis with sea anemones.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Shark" alt="Great White Shark">
+                <h3>Great White Shark</h3>
+                <p>Large predatory shark known for its size and powerful jaws.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Salmon" alt="Salmon">
+                <h3>Atlantic Salmon</h3>
+                <p>Anadromous fish known for its long migrations and commercial value.</p>
+                <a href="#">Read more</a>
+            </div>
+            <div class="animal-card">
+                <img src="https://via.placeholder.com/300x200?text=Angelfish" alt="Angelfish">
+                <h3>Freshwater Angelfish</h3>
+                <p>Popular aquarium fish with distinctive triangular shape.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+        
+        <section>
+            <h3>Fish Characteristics</h3>
+            <ul>
+                <li>Live in water and breathe through gills</li>
+                <li>Most have scales covering their bodies</li>
+                <li>Cold-blooded (ectothermic)</li>
+                <li>Most have fins for movement</li>
+                <li>Lay eggs (most species)</li>
+            </ul>
+        </section>
+    </div>
+    
+    <!-- Conservation Tab -->
+    <div id="conservation" class="tab-content">
+        <div class="hero" style="background-image: url('https://via.placeholder.com/1200x400?text=Conservation+Banner')">
+            <h2>Join the Fight to Protect Wildlife</h2>
+        </div>
+        
+        <section>
+            <h3>Why Conservation Matters</h3>
+            <p>Wildlife conservation is the practice of protecting wild species and their habitats in order to maintain healthy wildlife species or populations and to restore, protect or enhance natural ecosystems. Major threats to wildlife include habitat destruction, degradation, fragmentation, overexploitation, poaching, pollution, and climate change.</p>
+        </section>
+        
+        <section>
+            <h3>Endangered Species</h3>
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Panda" alt="Giant Panda">
+                    <h3>Giant Panda</h3>
+                    <p>Conservation status: Vulnerable</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Rhino" alt="Black Rhino">
+                    <h3>Black Rhinoceros</h3>
+                    <p>Conservation status: Critically Endangered</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Orangutan" alt="Orangutan">
+                    <h3>Bornean Orangutan</h3>
+                    <p>Conservation status: Critically Endangered</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Leopard" alt="Snow Leopard">
+                    <h3>Snow Leopard</h3>
+                    <p>Conservation status: Vulnerable</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>How You Can Help</h3>
+            <ul>
+                <li>Support conservation organizations</li>
+                <li>Reduce your carbon footprint</li>
+                <li>Avoid products made from endangered species</li>
+                <li>Educate others about conservation</li>
+                <li>Volunteer for local conservation projects</li>
+                <li>Practice sustainable consumption</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h3>Conservation Success Stories</h3>
+            <p>Despite the challenges, there have been notable conservation successes:</p>
+            <ul>
+                <li>The recovery of the American bald eagle population</li>
+                <li>The rebound of southern white rhino numbers</li>
+                <li>The increase in giant panda populations leading to their status being downgraded from "Endangered" to "Vulnerable"</li>
+                <li>The successful reintroduction of wolves to Yellowstone National Park</li>
+            </ul>
+        </section>
+    </div>
+    
+    <!-- Bengal Tiger Detail Tab -->
+    <div id="tiger" class="tab-content">
+        <div class="animal-detail">
+            <div class="animal-image">
+                <img src="https://via.placeholder.com/500x300?text=Bengal+Tiger" alt="Bengal Tiger">
+            </div>
+            <div class="animal-info">
+                <h2>About the Bengal Tiger</h2>
+                <p>The Bengal tiger is a population of the Panthera tigris tigris subspecies and the nominate tiger subspecies. It ranks among the biggest wild cats alive today. It is considered to belong to the world's charismatic megafauna.</p>
+                
+                <h3>Quick Facts</h3>
+                <table class="facts-table">
+                    <tr>
+                        <th>Scientific Name</th>
+                        <td>Panthera tigris tigris</td>
+                    </tr>
+                    <tr>
+                        <th>Habitat</th>
+                        <td>Forests, mangroves, grasslands of South Asia</td>
+                    </tr>
+                    <tr>
+                        <th>Diet</th>
+                        <td>Carnivorous (deer, wild boar, buffalo)</td>
+                    </tr>
+                    <tr>
+                        <th>Average Lifespan</th>
+                        <td>8-10 years in wild, 16-18 years in captivity</td>
+                    </tr>
+                    <tr>
+                        <th>Conservation Status</th>
+                        <td>Endangered</td>
+                    </tr>
+                    <tr>
+                        <th>Weight</th>
+                        <td>Male: 200-260 kg, Female: 100-160 kg</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <section>
+            <h3>Physical Characteristics</h3>
+            <p>Bengal tigers have a reddish-orange coat with narrow black, gray, or brown stripes, generally in a vertical direction. The underside is creamy or white; some tigers have a white coat with brown or black stripes and blue eyes. The white tiger is a recessive mutant of the Bengal tiger.</p>
+        </section>
+        
+        <section>
+            <h3>Behavior and Ecology</h3>
+            <p>Bengal tigers are solitary and territorial animals. They establish and maintain home ranges that vary in size depending on the availability of prey. Tigers communicate through vocalizations, scent markings, and visual signals. They are powerful swimmers and often cool off in pools or streams.</p>
+        </section>
+        
+        <section>
+            <h3>Conservation Status</h3>
+            <p>The Bengal tiger is endangered due to poaching and loss of habitat. Conservation efforts include anti-poaching measures, habitat preservation, and the establishment of wildlife corridors. Project Tiger, launched in 1973 in India, has been instrumental in tiger conservation.</p>
+        </section>
+        
+        <section>
+            <h3>Gallery</h3>
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Tiger+Cub" alt="Tiger cub">
+                    <p>Tiger cubs stay with their mother for 2-3 years</p>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Tiger+Swimming" alt="Tiger swimming">
+                    <p>Tigers are excellent swimmers</p>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=Tiger+Hunting" alt="Tiger hunting">
+                    <p>Tigers are apex predators in their ecosystem</p>
+                </div>
+                <div class="animal-card">
+                    <img src="https://via.placeholder.com/300x200?text=White+Tiger" alt="White tiger">
+                    <p>White tigers are a color variant of Bengal tigers</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Wildlife Encyclopedia. All rights reserved.</p>
+        <p>Contact us: info@wildlifeencyclopedia.com</p>
+    </footer>
+    
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabLinks = document.querySelectorAll('.tab-link');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs and links
+                    document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Simple search functionality
+            const searchForm = document.querySelector('.search-container form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = this.querySelector('input').value.toLowerCase();
+                    alert('Search functionality would show results for: ' + searchTerm);
+                    // In a real implementation, you would filter content or fetch search results
+                });
+            }
+            
+            // Newsletter signup
+            const newsletterForm = document.querySelector('.newsletter form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input').value;
+                    alert('Thank you for subscribing with: ' + email);
+                    this.querySelector('input').value = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
